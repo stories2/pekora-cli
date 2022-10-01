@@ -1,3 +1,10 @@
 #!/usr/bin/env node
 
-console.log("hi");
+import clear from "clear";
+import chalk from "chalk";
+import figlet from "figlet";
+
+clear();
+console.log(
+  chalk.red(figlet.textSync("pekora-cli", { horizontalLayout: "full" }))
+);

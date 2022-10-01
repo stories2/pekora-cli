@@ -28,8 +28,11 @@
   "bugs": {
     "url": "https://github.com/stories2/pekora-cli/issues"
   },
+  "type": "module",
   "homepage": "https://github.com/stories2/pekora-cli#readme",
   "devDependencies": {
+    "@types/clear": "^0.1.2",
+    "@types/figlet": "^1.5.5",
     "@types/node": "^18.7.23",
     "@types/yargs": "^17.0.13",
     "pkg": "^5.8.0",
@@ -40,6 +43,7 @@
     "chalk": "^5.0.1",
     "clear": "^0.1.0",
     "commander": "^9.4.1",
+    "figlet": "^1.5.2",
     "inquirer": "^9.1.2",
     "yargs": "^17.6.0"
   }
