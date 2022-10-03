@@ -2,26 +2,76 @@
 
 import clear from "clear";
 import chalk from "chalk";
-import figlet from "figlet";
+// import figlet from "figlet";
 import { program } from "commander";
+import { runner as ContainerRunner } from "./commands/container.gen";
+import { runner as FrontlineRunner } from "./commands/frontline.gen";
+// import inquirer from "inquirer";
+import { createLogger, format, transports } from "winston";
+// const logger = createLogger({
+//   level: "debug",
+//   format: format.json(),
+//   transports: [
+//     //
+//     // - Write all logs with importance level of `error` or less to `error.log`
+//     // - Write all logs with importance level of `info` or less to `combined.log`
+//     new transports.Console({
+//       format: format.simple(),
+//     }),
+//   ],
+// });
 
 clear();
 console.log(
-  chalk.red(figlet.textSync("pekora-cli", { horizontalLayout: "full" }))
+  // chalk.red(figlet.textSync("pekora-cli", { horizontalLayout: "full" }))
+  "pekora-cli"
 );
 program
   .version(process.env.npm_package_version || "-.-.-")
-  .description("CLI for automatic ")
-  .option("-p, --peppers", "Add peppers")
-  .option("-P, --pineapple", "Add pineapple")
-  .option("-b, --bbq", "Add bbq sauce")
-  .option("-c, --cheese <type>", "Add the specified type of cheese [marble]")
-  .option("-C, --no-cheese", "You do not want any cheese")
+  .description(
+    `CLI for auto generate di.container.js or frontline.js
+
+---Example---
+
+- Generate di.container.js
+peko -g container -o ./sample/di.container.js -s ./sample/**/*.js ./sample/test.js
+
+- Generate frontline.js
+peko -g frontline -o ./sample/di.container.js -s ./sample/**/*.js`
+  )
+  //   .description
+  .requiredOption(
+    "-g, --generate <string>",
+    "Generate di.container.js or frontline.js. ex) container|frontline"
+  )
+  .requiredOption(
+    "-o, --output <string>",
+    "Output path (overwrite). ex) /path/to/filename.js"
+  )
+  .requiredOption(
+    "-s, --source <strings...>",
+    "Directory of source. ex) /path/**/*.js /other/path/*.js"
+  )
   .parse(process.argv);
+//   program
+//   .option('-n, --number <numbers...>', 'specify numbers')
+//   .option('-l, --letter [letters...]', 'specify letters');
 
 program.outputHelp();
 const options = program.opts();
-console.log("options", options, "asfda", program.args);
+// console.log("options", options, "asfda", program.args);
+
+switch (options.generate) {
+  case "container":
+    ContainerRunner(options.source, options.output);
+    break;
+  case "frontline":
+    FrontlineRunner(options.source, options.output);
+    break;
+  default:
+    console.log(chalk.red.bold("Unknown generate option detected."));
+    break;
+}
 
 // console.log("you ordered a pizza with:");
 // if (options.peppers) console.log("  - peppers");
