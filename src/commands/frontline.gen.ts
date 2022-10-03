@@ -93,7 +93,8 @@ export function runner(
   // generate di.container.js
   const prefix = "__";
 
-  let result = `const { ContainerBuilder, Reference } = require('node-dependency-injection');
+  let result = `/* eslint-disable */
+const { ContainerBuilder, Reference } = require('node-dependency-injection');
 const container = new ContainerBuilder();`;
   // require
   Object.keys(classMapper).forEach((className) => {
@@ -121,7 +122,7 @@ const container = new ContainerBuilder();`;
 
   // generate frontline
 
-  let frontlineResult = "";
+  let frontlineResult = "/* eslint-disable */\n";
   // linking
   const methodList = [];
   Object.keys(classMapper).forEach((className) => {
