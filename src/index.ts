@@ -29,15 +29,13 @@ console.log(
 program
   .version(process.env.npm_package_version || "-.-.-")
   .description(
-    `CLI for auto generate di.container.js or frontline.js
+    `CLI for auto generate di.container.js and frontline.js
 
 ---Example---
 
-- Generate di.container.js
-peko -g container -o ./sample/di.container.js -s ./sample/**/*.js ./sample/test.js
-
-- Generate frontline.js
-peko -g frontline -o ./sample/di.container.js -s ./sample/**/*.js`
+- Generate di.container.js and frontline.js
+peko -od ./sample/di.container.js -of ./sample/di.container.js -s ./sample/**/*.js ./sample/test.js
+`
   )
   .requiredOption(
     "-od, --output-di <string>",
@@ -58,7 +56,7 @@ peko -g frontline -o ./sample/di.container.js -s ./sample/**/*.js`
 
 program.outputHelp();
 const options = program.opts();
-console.log("options", options, "asfda", program.args);
+// console.log("options", options, "asfda", program.args);
 
 // switch (options.generate) {
 //   case "container":

@@ -143,4 +143,6 @@ const container = new ContainerBuilder();`;
     encoding: "utf8",
     flag: "w",
   });
+
+  console.log("---done---\nHA↗HA↗HA↗HA↗🥕🥕🥕\n");
 }
