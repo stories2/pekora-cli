@@ -1,6 +1,6 @@
 {
   "name": "pekora-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "I want to go home faster",
   "main": "./bundle/out.js",
   "scripts": {
