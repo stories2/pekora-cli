@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { ContainerBuilder, Reference } = require('node-dependency-injection');
 const container = new ContainerBuilder();
 const { Index } = require('./sample/dir1/index');

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const createFoo = (req, res, next) => container.get('__Index').createFoo(req, res, next);
 const updateFoo = (req) => container.get('__Index').updateFoo(req);
 const selectFoo = () => container.get('__Index').selectFoo();
