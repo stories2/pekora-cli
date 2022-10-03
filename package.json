@@ -1,6 +1,10 @@
 {
+  "keywords": [
+    "cli",
+    "peko"
+  ],
   "name": "pekora-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "I want to go home faster",
   "main": "./bundle/out.js",
   "scripts": {

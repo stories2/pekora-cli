@@ -8,6 +8,14 @@ Auto generate di container and frontline mapping source based on [this module](h
 
 This is first version of program. So, there will be many bugs.
 
+## Install
+
+```
+npm i --save-dev pekora-cli
+# or
+npm i -g pekora-cli
+```
+
 ## How to use?
 
 ```
