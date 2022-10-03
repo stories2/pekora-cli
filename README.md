@@ -41,3 +41,24 @@ Options:
   -s, --source <strings...>         Directory of source. You can use wild card and mulitiple paths ex) /path/**/*.js /other/path/*.js
   -h, --help                        display help for command
 ```
+
+## In your source should be...
+
+```
+//@Autowired        <-- Should mark autowired annotation so that generate in di.container.js
+class Foo {
+   /**
+   * @param {Index1Controller} index1Controller         <-- Should write params so that binding dependency in di.container.js
+   * @param {Index2Controller} index2Controller
+   */
+   constructor(index1Controller, index2Controller) {
+        this.index1Controller = index1Controller;
+        this.index2Controller = index2Controller;
+   }
+
+   //@frontline             <-- Should mark frontline annotation so that generate in frontline.js
+   bar(a, b, c) {
+
+   }
+}
+```

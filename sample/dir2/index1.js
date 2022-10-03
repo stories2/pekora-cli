@@ -1,5 +1,5 @@
 //@Autowired
-class Index1Controller {
+class Index1Controller extends InvisibleController{
     constructor()
 
   //@frontline
