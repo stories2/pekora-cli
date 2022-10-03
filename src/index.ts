@@ -39,14 +39,13 @@ peko -g container -o ./sample/di.container.js -s ./sample/**/*.js ./sample/test.
 - Generate frontline.js
 peko -g frontline -o ./sample/di.container.js -s ./sample/**/*.js`
   )
-  //   .description
   .requiredOption(
-    "-g, --generate <string>",
-    "Generate di.container.js or frontline.js. ex) container|frontline"
+    "-od, --output-di <string>",
+    "Output path of di container (overwrite). ex) /path/to/filename.js"
   )
   .requiredOption(
-    "-o, --output <string>",
-    "Output path (overwrite). ex) /path/to/filename.js"
+    "-of, --output-frontline <string>",
+    "Output path of frontline (overwrite). ex) /path/to/filename.js"
   )
   .requiredOption(
     "-s, --source <strings...>",
@@ -59,19 +58,21 @@ peko -g frontline -o ./sample/di.container.js -s ./sample/**/*.js`
 
 program.outputHelp();
 const options = program.opts();
-// console.log("options", options, "asfda", program.args);
+console.log("options", options, "asfda", program.args);
 
-switch (options.generate) {
-  case "container":
-    ContainerRunner(options.source, options.output);
-    break;
-  case "frontline":
-    FrontlineRunner(options.source, options.output);
-    break;
-  default:
-    console.log(chalk.red.bold("Unknown generate option detected."));
-    break;
-}
+// switch (options.generate) {
+//   case "container":
+//     ContainerRunner(options.source, options.output);
+//     break;
+//   case "frontline":
+//     FrontlineRunner(options.source, options.output);
+//     break;
+//   default:
+//     console.log(chalk.red.bold("Unknown generate option detected."));
+//     break;
+// }
+
+FrontlineRunner(options.source, options.outputDi, options.outputFrontline);
 
 // console.log("you ordered a pizza with:");
 // if (options.peppers) console.log("  - peppers");

@@ -3,4 +3,4 @@ class Index2Controller {
   constructor() {}
 }
 
-exports.default = Index2Controller;
+module.exports = { Index2Controller };

@@ -46,4 +46,4 @@ class Index {
   }
 }
 
-exports.default = Index;
+module.exports = { Index };

@@ -18,7 +18,8 @@
     "chmod": "chmod +x ./bundle/out.js",
     "test": "echo \"Error: no test specified\" && exit",
     "local:container": "npm run build && npm i -g && peko -g container -o ./sample/di.container.js -s ./sample/**/*.js ./sample/test.js",
-    "local:frontline": "npm run build && npm i -g && peko -g frontline -o ./sample/di.container.js -s ./sample/**/*.js",
+    "local:frontline": "npm run build && npm i -g && peko -g frontline -o ./sample/frontline.js -s ./sample/**/*.js",
+    "local": "npm run build && npm i -g && peko -of ./sample/frontline.js -od ./sample/di.container.js -s ./sample/**/*.js ./sample/test.js",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "fonts:load": "mkdir ./fonts && cp node_modules/figlet/fonts/Standard.flf ./fonts/",
     "esbuild": "esbuild ./dist/index.js --platform=node --bundle --outfile=./bundle/out.js"
