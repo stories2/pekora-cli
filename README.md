@@ -32,7 +32,7 @@ CLI for auto generate di.container.js and frontline.js
 ---Example---
 
 - Generate di.container.js and frontline.js
-peko -od ./sample/di.container.js -of ./sample/di.container.js -s ./sample/**/*.js ./sample/test.js
+peko -od ./sample/di.container.js -of ./sample/frontline.js -s ./sample/**/*.js ./sample/test.js
 
 Options:
   -V, --version                     output the version number

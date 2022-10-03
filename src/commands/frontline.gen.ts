@@ -2,14 +2,14 @@ import chalk from "chalk";
 import fs from "fs";
 
 function methodExtractor(body: string) {
-  return [...body.matchAll(/\/\/@frontline\n\s*([\w]*)\(([\w\s\,]*)\)/g)].map(
-    (item) => {
-      return {
-        method: item[1],
-        args: [...item[2].matchAll(/([\w]+)[\,\s]*/g)].map((arg) => arg[1]),
-      };
-    }
-  );
+  return [
+    ...body.matchAll(/\/\/@frontline\n\s*(?:async\s)?([\w]*)\(([\w\s\,]*)\)/g),
+  ].map((item) => {
+    return {
+      method: item[1],
+      args: [...item[2].matchAll(/([\w]+)[\,\s]*/g)].map((arg) => arg[1]),
+    };
+  });
 }
 
 export function runner(

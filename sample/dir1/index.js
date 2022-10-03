@@ -10,7 +10,7 @@ class Index {
   }
 
   //@frontline
-  createFoo(req, res, next) {
+  async createFoo(req, res, next) {
     console.log("asdf");
   }
 
