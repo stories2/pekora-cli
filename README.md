@@ -61,4 +61,10 @@ class Foo {
 
    }
 }
+
+//@Autowired
+class Foo2 {
+
+}
+//--boundary                <-- If you use non-constructor class, then should mark end of class using //--boundary
 ```

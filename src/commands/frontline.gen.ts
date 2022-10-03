@@ -61,7 +61,7 @@ export function runner(
     const data = fs.readFileSync(path).toString();
     const detectedList = [
       ...data.matchAll(
-        /\/\/@Autowired\n+class\s*(\w*)\s*(?:[extends\s\w\s]*)?\s*\{\.*([\w\s\n\*\/\@\{}]*\/?)constructor((?:(?!module\.exports|class|\/\/@Autowired).|\n)*)/g
+        /\/\/@Autowired\n+class\s*(\w*)\s*(?:[extends\s\w\s]*)?\s*\{\.*([\w\s\n\*\/\@\{}]*\/?)(?:constructor)?((?:(?!module\.exports|class|\/\/@Autowired|\-\-boundary).|\n)*)/g
       ),
     ].map((item) => {
       return {

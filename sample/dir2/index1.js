@@ -56,4 +56,9 @@ class InvisibleController {
   }
 }
 
+//@Autowired
+class NoNamedController {
+
+}//--boundary
+
 module.exports = { Index1Controller };
