@@ -2,7 +2,8 @@
 
 import clear from "clear";
 import chalk from "chalk";
-// import figlet from "figlet";
+import figlet from "figlet";
+// import "figlet/fonts/Standard.flf";
 import { program } from "commander";
 import { runner as ContainerRunner } from "./commands/container.gen";
 import { runner as FrontlineRunner } from "./commands/frontline.gen";
@@ -23,8 +24,7 @@ import { createLogger, format, transports } from "winston";
 
 clear();
 console.log(
-  // chalk.red(figlet.textSync("pekora-cli", { horizontalLayout: "full" }))
-  "pekora-cli"
+  chalk.red(figlet.textSync("pekora-cli", { horizontalLayout: "full" }))
 );
 program
   .version(process.env.npm_package_version || "-.-.-")
