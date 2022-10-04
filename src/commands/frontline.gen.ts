@@ -3,7 +3,7 @@ import fs from "fs";
 
 function methodExtractor(body: string) {
   return [
-    ...body.matchAll(/\/\/@frontline\n\s*(?:async\s)?([\w]*)\(([\w\s\,]*)\)/g),
+    ...body.matchAll(/\/\/@frontline\n\s*(?:async\s)?([\w]*)\s*\(([\w\s\,]*)\)/g),
   ].map((item) => {
     return {
       method: item[1],
