@@ -142,7 +142,7 @@ const container = new ContainerBuilder();`;
     });
   });
   // exports
-  frontlineResult += `module.exports = {${methodList.join(", ")}};`;
+  frontlineResult += `export {${methodList.join(", ")}};`;
 
   console.log("---frontline---\n", frontlineResult);
   fs.writeFileSync(distFrontline, frontlineResult, {

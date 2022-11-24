@@ -4,7 +4,7 @@
     "peko"
   ],
   "name": "pekora-cli",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "I want to go home faster",
   "main": "./bundle/out.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "bundle": "npm run build2 && pkg . --debug --out-dir ./exec/",
     "asdf": "pkg . --out-dir ./exec/",
     "build": "npm run clean && tsc && npm run fonts:load && npm run esbuild && npm run chmod",
-    "build:frontline": "npx -p typescript tsc frontline.ts -skipLibCheck",
+    "build:frontline": "npx -p typescript tsc ./sample/frontline.ts -skipLibCheck",
     "package": "pkg . --debug --output peko",
     "chmod": "chmod +x ./bundle/out.js",
     "test": "echo \"Error: no test specified\" && exit",

@@ -13,4 +13,4 @@ const selectFoo = () => container.get('__Index1Controller').selectFoo() as Index
 const deleteFoo = (req1, res2) => container.get('__Index1Controller').deleteFoo(req1, res2) as Index1Controller["deleteFoo"];
 const selectFoo = () => container.get('__DummyController').selectFoo() as DummyController["selectFoo"];
 const deleteFoo = (req1, res2) => container.get('__DummyController').deleteFoo(req1, res2) as DummyController["deleteFoo"];
-module.exports = {createFoo, updateFoo, selectFoo, deleteFoo, selectFoo, deleteFoo, selectFoo, deleteFoo};
+export {createFoo, updateFoo, selectFoo, deleteFoo, selectFoo, deleteFoo, selectFoo, deleteFoo};
