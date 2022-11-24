@@ -122,7 +122,12 @@ const container = new ContainerBuilder();`;
 
   // generate frontline
 
-  let frontlineResult = "/* eslint-disable */\n";
+  let frontlineResult = "/* eslint-disable */\ndeclare const container;\n";
+  Object.keys(classMapper).forEach((className) => {
+    frontlineResult += `import { ${className} } from "${classMapper[
+      className
+    ].path.replace(/\.[^/.]+$/, "")}";\n`;
+  })
   // linking
   const methodList = [];
   Object.keys(classMapper).forEach((className) => {
@@ -133,7 +138,7 @@ const container = new ContainerBuilder();`;
         ", "
       )}) => container.get('${prefix}${className}').${
         methodObj.method
-      }(${methodObj.args.join(", ")});\n`;
+      }(${methodObj.args.join(", ")}) as ${className}["${methodObj.method}"];\n`;
     });
   });
   // exports
