@@ -29,12 +29,12 @@ console.log(
 program
   .version(process.env.npm_package_version || "-.-.-")
   .description(
-    `CLI for auto generate di.container.js and frontline.js
+    `CLI for auto generate di.container.js and frontline.ts
 
 ---Example---
 
 - Generate di.container.js and frontline.js
-peko -od ./sample/di.container.js -of ./sample/di.container.js -s ./sample/**/*.js ./sample/test.js
+peko -od ./sample/di.container.js -of ./sample/frontline.ts -s ./sample/**/*.js ./sample/test.js
 `
   )
   .requiredOption(

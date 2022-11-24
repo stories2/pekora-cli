@@ -32,7 +32,7 @@ CLI for auto generate di.container.js and frontline.js
 ---Example---
 
 - Generate di.container.js and frontline.js
-peko -od ./sample/di.container.js -of ./sample/frontline.js -s ./sample/**/*.js ./sample/test.js
+peko -od ./sample/di.container.js -of ./sample/frontline.ts -s ./sample/**/*.js ./sample/test.js
 
 Options:
   -V, --version                     output the version number
@@ -67,4 +67,12 @@ class Foo2 {
 
 }
 //--boundary                <-- If you use non-constructor class, then should mark end of class using //--boundary
+```
+
+### Test run
+
+```
+npm run build
+./bundle/out.js -od ./sample/di.container.js -of ./sample/frontline.ts -s ./sample/**/*.js ./sample/test.js;
+npm run build:frontline
 ```

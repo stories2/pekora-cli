@@ -1,10 +1,11 @@
-/* eslint-disable */
-const createFoo = (req, res, next) => container.get('__Index').createFoo(req, res, next);
-const updateFoo = (req) => container.get('__Index').updateFoo(req);
-const selectFoo = () => container.get('__Index').selectFoo();
-const deleteFoo = (req1, res2) => container.get('__Index').deleteFoo(req1, res2);
-const selectFoo = () => container.get('__Index1Controller').selectFoo();
-const deleteFoo = (req1, res2) => container.get('__Index1Controller').deleteFoo(req1, res2);
-const selectFoo = () => container.get('__DummyController').selectFoo();
-const deleteFoo = (req1, res2) => container.get('__DummyController').deleteFoo(req1, res2);
-module.exports = {createFoo, updateFoo, selectFoo, deleteFoo, selectFoo, deleteFoo, selectFoo, deleteFoo};
+"use strict";
+exports.__esModule = true;
+var createFoo = function (req, res, next) { return container.get('__Index').createFoo(req, res, next); };
+var updateFoo = function (req) { return container.get('__Index').updateFoo(req); };
+var selectFoo = function () { return container.get('__Index').selectFoo(); };
+var deleteFoo = function (req1, res2) { return container.get('__Index').deleteFoo(req1, res2); };
+var selectFoo = function () { return container.get('__Index1Controller').selectFoo(); };
+var deleteFoo = function (req1, res2) { return container.get('__Index1Controller').deleteFoo(req1, res2); };
+var selectFoo = function () { return container.get('__DummyController').selectFoo(); };
+var deleteFoo = function (req1, res2) { return container.get('__DummyController').deleteFoo(req1, res2); };
+module.exports = { createFoo: createFoo, updateFoo: updateFoo, selectFoo: selectFoo, deleteFoo: deleteFoo, selectFoo: selectFoo, deleteFoo: deleteFoo, selectFoo: selectFoo, deleteFoo: deleteFoo };
