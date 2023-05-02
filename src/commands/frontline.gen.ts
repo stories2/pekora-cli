@@ -17,81 +17,10 @@ export function runner(
   distDiContainer: string,
   distFrontline: string
 ) {
-  console.log(
-    chalk.bgYellow("Generate Frontline"),
-    chalk.bgBlue("Source: ", source),
-    chalk.bgGreen("Output: ", distDiContainer, distFrontline)
-  );
-
-  const frontlineMethods = [
-    ...`//@frontline
-  foo(a, b2_, c) {
-  asdfasf
-      bar(asdfas)
-  }
-  
-  //@frontline
-  asdf() {
-  }
-  
-  //@frontline
-  fdsa(a){ }
-  
-  func(a, b, c) {
-  }
-  
-  func2() {
-  }
-  
-  func3(a){ }`.matchAll(/\/\/@frontline\n\s*([\w]*)\(([\w\s\,]*)\)/g),
-  ].map((item) => {
-    return {
-      method: item[1],
-      args: [...item[2].matchAll(/([\w]+)[\,\s]*/g)].map((arg) => arg[1]),
-    };
-  });
-  // console.log(frontlineMethods);
-
-  const classMapper = {};
-
-  // /\/\/@Autowired\n+class\s(\w*)\s?/g
 
   source.forEach((path) => {
     // console.log(`---${path}---`);
     const data = fs.readFileSync(path).toString();
-    const detectedList = [
-      ...data.matchAll(
-        /\/\/@Autowired\n+class\s*(\w*)\s*(?:[extends\s\w\s]*)?\s*\{\.*([\w\s\n\*\/\@\{}]*\/?)(?:constructor)?((?:(?!module\.exports|class|\/\/@Autowired|\-\-boundary).|\n)*)/g
-      ),
-    ].map((item) => {
-      return {
-        className: item[1],
-        params: [...item[2].matchAll(/@param\s*\{(\w*)\}\s*\w*/g)].map(
-          (paramParsed) => paramParsed[1]
-        ),
-        methods: methodExtractor(item[3]),
-      };
-    });
-    // console.log("detectedList", detectedList);
-
-    detectedList.forEach((classObj) => {
-      const { className, params, methods } = classObj;
-
-      if (classMapper.hasOwnProperty(className)) {
-        throw new Error(`Already exist class name ${className} / ${path}`);
-      } else {
-        classMapper[className] = {
-          path,
-          params,
-          methods,
-        };
-      }
-    });
-  });
-
-  console.log("---mapper---\n", JSON.stringify(classMapper));
-  // generate di.container.js
-  const prefix = "__";
 
   let result = `/* eslint-disable */
 const { ContainerBuilder, Reference } = require('node-dependency-injection');

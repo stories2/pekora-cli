@@ -68,6 +68,8 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
+    "@babel/parser": "^7.21.4",
+    "@babel/types": "^7.21.4",
     "chalk": "^5.0.1",
     "clear": "^0.1.0",
     "commander": "^9.4.1",

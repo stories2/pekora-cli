@@ -5,6 +5,7 @@ import chalk from "chalk";
 import figlet from "figlet";
 // import "figlet/fonts/Standard.flf";
 import { program } from "commander";
+import { parseCode } from './commands/parser';
 import { runner as ContainerRunner } from "./commands/container.gen";
 import { runner as FrontlineRunner } from "./commands/frontline.gen";
 // import inquirer from "inquirer";
@@ -70,7 +71,77 @@ const options = program.opts();
 //     break;
 // }
 
-FrontlineRunner(options.source, options.outputDi, options.outputFrontline);
+// FrontlineRunner(options.source, options.outputDi, options.outputFrontline);
+parseCode('inline code', 
+  `//@Autowired
+  class Index extends A {
+    /**
+     * @param {Index1Controller} index1Controller
+     * @param {Index2Controller} index2Controller
+     */
+    constructor(index1Controller, index2Controller) {
+      this.index1Controller = index1Controller;
+      this.index2Controller = index2Controller;
+    }
+  
+    //@frontline
+    async createFoo(req, res, next) {
+      console.log("asdf");
+    }
+  
+    createBar(req, res, next) {
+      console.log("fadsf");
+    }
+  
+    //@frontline
+    updateFoo(req) {
+      console.log("afaf");
+    }
+  
+    updateBar(req) {
+      console.log("ASdf");
+    }
+  
+    //@frontline
+    selectFoo() {
+      console.log("afsdaf");
+    }
+  
+    selectBar() {
+      console.log("fasfa");
+    }
+  
+    //@frontline
+    deleteFoo(req1, res2) {
+      console.log("asdf");
+    }
+  
+    deleteFoo(req1, res2) {
+      console.log("asdfsad");
+    }
+
+    //@frontline
+    under_bar_Foo(req1, res2) {
+      console.log("asdf");
+    }
+  
+    under_bar_Foo(req1, res2) {
+      console.log("asdfsad");
+    }
+
+    //@frontline
+    defaultFoo(req1, res2 = false) {
+      console.log("asdf");
+    }
+  
+    defaultFoo(req1, res2 = false) {
+      console.log("asdfsad");
+    }
+  }
+  
+  module.exports = { Index };
+  `
+)
 
 // console.log("you ordered a pizza with:");
 // if (options.peppers) console.log("  - peppers");
