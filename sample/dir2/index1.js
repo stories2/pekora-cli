@@ -1,6 +1,6 @@
 //@Autowired
 class Index1Controller extends InvisibleController{
-    constructor()
+    constructor() {}
 
   //@frontline
   selectFoo() {
@@ -23,7 +23,7 @@ class Index1Controller extends InvisibleController{
 
 //@Autowired
 class DummyController {
-    constructor()
+    constructor() {}
     //@frontline
     selectFoo() {
       console.log("afsdaf");
@@ -44,7 +44,7 @@ class DummyController {
 }
 
 class InvisibleController {
-    constructor()
+    constructor() {}
 
   //@frontline
   selectFoo() {

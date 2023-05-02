@@ -1,73 +1,64 @@
-import chalk from "chalk";
-import fs from "fs";
+import { ParsedCode } from './main';
 
-export function runner(source: string[], output: string) {
-  console.log(
-    chalk.bgYellow("Generate Container"),
-    chalk.bgBlue("Source: ", source),
-    chalk.bgGreen("Output: ", output)
-  );
+function writeRequire(parsedCodeList: ParsedCode[]): string[] {
+  const result: string[] = [];
+  parsedCodeList.forEach(parsedCode => {
+      const classNameJoined = parsedCode.parsed.filter(parsed => parsed.isAutowired).map(parsed => parsed.name).join(', ')
+      result.push(`const { ${classNameJoined} } = require('${parsedCode.path}')`)
+  })
+  return result;
+}
 
-  const classMapper = {};
+function writeReference(parsedCodeList: ParsedCode[], prefix: string = '__'): string[] {
+  const result: string[] = [];
+  parsedCodeList.forEach(parsedCode => {
+      parsedCode.parsed.filter(parsed => parsed.isAutowired).forEach(parsed => {
+          result.push(`const ${prefix}${parsed.name} = new Reference('${prefix}${parsed.name}')`)
+      })
+  })
+  return result;
+}
 
-  // /\/\/@Autowired\n+class\s(\w*)\s?/g
+function writeRegister(parsedCodeList: ParsedCode[], prefix: string = '__'): string[] {
+  const result: string[] = [];
+  parsedCodeList.forEach(parsedCode => {
+      parsedCode.parsed.filter(parsed => parsed.isAutowired).forEach(parsed => {
+          result.push(`container.register('${prefix}${parsed.name}', ${parsed.name})`)
+          const constructorList = parsed.methods.filter(method => method.kind === 'constructor')
+          if (constructorList.length > 0) {
+              constructorList[0].dependency.forEach(dependency => {
+                  result.push(`    .addArgument(${prefix}${dependency.class})`)
+              })
+          }
+      })
+  })
+  return result;
+}
 
-  source.forEach((path) => {
-    const data = fs.readFileSync(path).toString();
-    const detectedClassAndParamList = [
-      ...data.matchAll(
-        /\/\/@Autowired\n+class\s(\w*)\s\{\.*([\w\s\n\*\/\@\{}]*\/?)constructor/g
-      ),
-    ].map((item) => {
-      return {
-        className: item[1],
-        param: [...item[2].matchAll(/@param\s*\{(\w*)\}\s*\w*/g)].map(
-          (paramParsed) => paramParsed[1]
-        ),
-      };
-    });
+export function generateContainer(parsedCodeList: ParsedCode[]): string {
+  const header = `
+/* eslint-disable */
+const { ContainerBuilder, Reference } = require('node-dependency-injection');
+const container = new ContainerBuilder();
+  `;
+  const requireResults = writeRequire(parsedCodeList);
+  // console.log('require\n', requireResults);
+  const referenceResults = writeReference(parsedCodeList);
+  // console.log('ref\n', referenceResults);
+  const registerResults = writeRegister(parsedCodeList);
+  // console.log('reg\n', registerResults);
 
-    // console.log(path, ":", detectedClassList);
-    detectedClassAndParamList.forEach((classNameAndParam) => {
-      const { className, param } = classNameAndParam;
+  const footer = `
+container.compile();
+module.exports = { container };
+  `;
 
-      console.log(className, param);
-      if (classMapper.hasOwnProperty(className)) {
-        throw new Error(`Already exist class name ${className} / ${path}`);
-      } else {
-        classMapper[className] = {
-          path,
-          param,
-        };
-      }
-    });
-  });
-  console.log("classmapper", classMapper);
-  const prefix = "__";
-
-  let result = `const { ContainerBuilder, Reference } = require('node-dependency-injection');
-const container = new ContainerBuilder();`;
-  // require
-  Object.keys(classMapper).forEach((className) => {
-    result += `\nconst { ${className} } = require('${classMapper[
-      className
-    ].path.replace(/\.[^/.]+$/, "")}');`;
-  });
-  // ref
-  Object.keys(classMapper).forEach((className) => {
-    result += `\nconst ${prefix}${className} = new Reference('${prefix}${className}');`;
-  });
-  // register
-  Object.keys(classMapper).forEach((className) => {
-    result += `\ncontainer.register('${prefix}${className}', ${className})`;
-    classMapper[className].param.forEach((dependencyClassName) => {
-      result += `\n .addArgument(${prefix}${dependencyClassName})`;
-    });
-    result += ";";
-  });
-
-  result += `\ncontainer.compile();\nmodule.exports = { container };`;
-  console.log("result", result);
-
-  fs.writeFileSync(output, result, { encoding: "utf8", flag: "w" });
+  let content = `
+${header}\n
+${requireResults.join('\n')}\n
+${referenceResults.join('\n')}\n
+${registerResults.join('\n')}\n
+${footer}
+`
+  return content;
 }

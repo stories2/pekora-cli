@@ -1,7 +1,7 @@
 import { ParseResult, parse } from '@babel/parser';
 import { ClassBody, File, Statement, Identifier, Pattern, RestElement, TSParameterProperty } from '@babel/types';
 
-type ParsedParam = {
+export type ParsedParam = {
     name: string;
     default?: any;
 };
@@ -138,7 +138,14 @@ export function parseCode(fileName: string, code: string): ParsedClass[] {
     // key.name: name
     // params[]: .name / type: Identifier or AssignmentPattern (.left.name and .right.value)
     // leadingComments[]: .value
-    const parseResult: ParseResult<File> = parse(code);
+    let parseResult: ParseResult<File> = null;
+    try {
+        parseResult = parse(code);
+    } catch (err) {
+        console.error(`[${fileName}] failed to parse. err: ${err.message}`)
+        return [];
+    }
+
     if (parseResult.errors.length > 0) {
         parseResult.errors.forEach((err) => {
             console.error(`[${fileName}] parse error ${err.code} / ${err.reasonCode}`);
@@ -149,6 +156,7 @@ export function parseCode(fileName: string, code: string): ParsedClass[] {
             console.warn(`[${fileName}] has no code`);
             return [];
         } else {
+            console.log(`[${fileName}] start to parse`)
             return getClasses(parseResult.program.body);
             // [{"name":"Index","methods":[{"name":"constructor","kind":"constructor","params":[{"name":"index1Controller"},{"name":"index2Controller"}],"comments":["*\n     * @param {Index1Controller} index1Controller\n     * @param {Index2Controller} index2Controller\n     "],"dependency":[{"class":"Index1Controller","instance":"index1Controller"},{"class":"Index2Controller","instance":"index2Controller"}],"isFrontline":false},{"name":"createFoo","kind":"method","params":[{"name":"req"},{"name":"res"},{"name":"next"}],"comments":["@frontline"],"dependency":[],"isFrontline":true},{"name":"createBar","kind":"method","params":[{"name":"req"},{"name":"res"},{"name":"next"}],"comments":[],"dependency":[],"isFrontline":false},{"name":"updateFoo","kind":"method","params":[{"name":"req"}],"comments":["@frontline"],"dependency":[],"isFrontline":true},{"name":"updateBar","kind":"method","params":[{"name":"req"}],"comments":[],"dependency":[],"isFrontline":false},{"name":"selectFoo","kind":"method","params":[],"comments":["@frontline"],"dependency":[],"isFrontline":true},{"name":"selectBar","kind":"method","params":[],"comments":[],"dependency":[],"isFrontline":false},{"name":"deleteFoo","kind":"method","params":[{"name":"req1"},{"name":"res2"}],"comments":["@frontline"],"dependency":[],"isFrontline":true},{"name":"deleteFoo","kind":"method","params":[{"name":"req1"},{"name":"res2"}],"comments":[],"dependency":[],"isFrontline":false},{"name":"under_bar_Foo","kind":"method","params":[{"name":"req1"},{"name":"res2"}],"comments":["@frontline"],"dependency":[],"isFrontline":true},{"name":"under_bar_Foo","kind":"method","params":[{"name":"req1"},{"name":"res2"}],"comments":[],"dependency":[],"isFrontline":false},{"name":"defaultFoo","kind":"method","params":[{"name":"req1"},{"name":"res2","default":false}],"comments":["@frontline"],"dependency":[],"isFrontline":true},{"name":"defaultFoo","kind":"method","params":[{"name":"req1"},{"name":"res2","default":false}],"comments":[],"dependency":[],"isFrontline":false}],"isAutowired":true}]
         }
