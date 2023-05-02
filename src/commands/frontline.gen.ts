@@ -15,7 +15,7 @@ function getParams(params: ParsedParam[], includeDefaultVal: boolean = false): s
         return params.map(val => val.name).join(', ');
     else
         return params.map(val => {
-            return val.default ? `${val.name} = ${val.default}` : `${val.name}`
+            return typeof val.default !== 'undefined' ? `${val.name} = ${val.default}` : `${val.name}`
         }).join(', ');
 }
 

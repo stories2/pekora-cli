@@ -19,6 +19,21 @@ class Index1Controller extends InvisibleController{
   deleteFoo(req1, res2) {
     console.log("asdfsad");
   }
+
+  //@frontline
+  defaultNullFoo(req1, res2 = null) {
+    console.log("asdf");
+  }
+
+  //@frontline
+  defaultUndefinedFoo(req1, res2 = undefined) {
+    console.log("asdf");
+  }
+
+  //@frontline
+  defaultZeroFoo(req1, res2 = 0) {
+    console.log("asdf");
+  }
 }
 
 //@Autowired
