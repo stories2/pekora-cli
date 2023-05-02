@@ -25,7 +25,7 @@ function writeMethod(parsedCodeList: ParsedCode[], prefix: string = '__'): strin
         parsedCode.parsed.filter(parsed => parsed.isAutowired).forEach(classCode => {
             const className = classCode.name;
             classCode.methods.filter(method => method.kind === 'method' && method.isFrontline).forEach(method => {
-                result.push(`const ${method.name} = (${getParams(method.params, true)}) => container.get(${prefix}${className}).${method.name}(${getParams(method.params)}) as ${className}["${method.name}"]`)
+                result.push(`const ${method.name} = (${getParams(method.params, true)}) => container.get('${prefix}${className}').${method.name}(${getParams(method.params)}) as ${className}["${method.name}"]`)
             })
         })
     })

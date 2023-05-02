@@ -4,7 +4,7 @@
     "peko"
   ],
   "name": "pekora-cli",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "I want to go home faster",
   "main": "./bundle/out.js",
   "scripts": {
